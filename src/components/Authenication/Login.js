@@ -44,8 +44,6 @@ export default class Login extends Component {
       });
   };
   SubmitGoogleUser = (user) => {
-    console.log(JSON.parse(localStorage.getItem("google_temp_user")).googleId)
-    this.setState({ googleUser: user });
               axios.post(`http://localhost:5000/loginGoogle/google_${JSON.parse(localStorage.getItem("google_temp_user")).googleId}`,JSON.parse(localStorage.getItem("google_temp_user")))
                 .then((res) => {
                   localStorage.setItem(`google_id`, res.data.google_id);
@@ -65,69 +63,12 @@ export default class Login extends Component {
  
 
   SubmitFacebookUser = (user) => {
-    this.setState({ facebookUser: user });
-    axios
-      .get(
-        `http://localhost:5000/facebookuser/${this.state.facebookUser.id}`
-      )
-      .then((res) => {
-        this.setState({ isFacebookValidated: res.data });
-        if (!this.state.isFacebookValidated) {
-          axios
-            .post(`http://localhost:5000/register`, {
-              user_name: this.state.facebookUser.name,
-              first_name: this.state.facebookUser.name,
-              last_name: this.state.facebookUser.name,
-              picture: this.state.facebookUser.picture.data.url,
-              facebook_email: this.state.facebookUser.email,
-              facebook_id: Number(this.state.facebookUser.id),
-              password:
-                Math.random().toString(36).substring(7) +
-                Math.random().toString(36).substring(7)
-            })
-            .then((res) => {
-              axios
-                .post(
-                  `http://localhost:5000/loginFacebook/${Number(
-                    this.state.facebookUser.id
-                  )}`
-                )
-                .then((res) => {
-                  localStorage.setItem(`facebook_id`, res.data.facebook_id);
-                  localStorage.setItem(`token`, res.data.token);
-                  localStorage.setItem(`id`, res.data.userid);
-                  localStorage.setItem(`email`, res.data.facebook_email);
-                  localStorage.setItem(`picture`, res.data.picture);
-                  localStorage.setItem(`first_name`, res.data.first_name);
-                  localStorage.setItem(`last_name`, res.data.last_name);
-                  localStorage.setItem(`last_name`, res.data.last_name);
-                  localStorage.setItem(`user_name`, res.data.user_name);
-                  this.props.history.push("/home");
-                  window.location.reload(false);
-                });
-            });
-        } else {
-          axios
-            .post(
-              `http://localhost:5000/loginFacebook/${Number(
-                this.state.facebookUser.id
-              )}`
-            )
-            .then((res) => {
-              localStorage.setItem(`facebook_id`, res.data.facebook_id);
-              localStorage.setItem(`token`, res.data.token);
-              localStorage.setItem(`id`, res.data.userid);
-              localStorage.setItem(`email`, res.data.facebook_email);
-              localStorage.setItem(`picture`, res.data.picture);
-              localStorage.setItem(`first_name`, res.data.first_name);
-              localStorage.setItem(`last_name`, res.data.last_name);
-              localStorage.setItem(`user_name`, res.data.user_name);
-              this.props.history.push("/home");
-              window.location.reload(false);
-            });
-        }
-      });
-  };
+    console.log("hi")
+    if (localStorage.getItem("Facebook_Temp_User")){
+   axios.post(`http://localhost:5000/loginFacebook/Facebook_${JSON.parse(localStorage.getItem("Facebook_Temp_User")).id}`,JSON.parse(localStorage.getItem("Facebook_Temp_User")))
+   .then(res => console.log(res))
+    }
+  }
 
   render() {
     return (

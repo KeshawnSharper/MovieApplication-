@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
 
 export default class Facebook extends Component {
+  constructor(props){
+    super(props)
+    this.SubmitFacebookUser = this.props.SubmitFacebookUser()
+    this.responseFacebook = this.responseFacebook.bind(this)
+  }
   state = {
     isLoggedIn: false,
     userID: "",
@@ -9,12 +14,15 @@ export default class Facebook extends Component {
     email: "",
     picture: ""
   };
-  componentClicked = () => {
-    console.log("clicked");
+  componentClicked = (response) => {
+    console.log(response);
+   
   };
   responseFacebook = (response) => {
-    this.props.SubmitFacebookUser(response);
     console.log(response);
+    localStorage.setItem("Facebook_Temp_User",JSON.stringify(response))
+    this.props.SubmitFacebookUser();
+    // console.log(response);
   };
   render() {
     let fbContent;
@@ -23,12 +31,11 @@ export default class Facebook extends Component {
     } else {
       fbContent = (
         <FacebookLogin
-          appId="400379678311865"
+          appId="607120073633986"
           buttonText="Facebook"
           height="50%"
           autoLoad={true}
           fields="name,email,picture"
-          onClick={this.componentClicked}
           callback={this.responseFacebook}
         />
       );
