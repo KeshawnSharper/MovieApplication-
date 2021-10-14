@@ -46,10 +46,9 @@ export default class Login extends Component {
   SubmitGoogleUser = (user) => {
               axios.post(`http://localhost:5000/loginGoogle/google_${JSON.parse(localStorage.getItem("google_temp_user")).googleId}`,JSON.parse(localStorage.getItem("google_temp_user")))
                 .then((res) => {
-                  localStorage.setItem(`google_id`, res.data.google_id);
+                  localStorage.setItem(`id`, res.data.id);
                   localStorage.setItem(`token`, res.data.token);
-                  localStorage.setItem(`id`, res.data.userid);
-                  localStorage.setItem(`email`, res.data.google_email);
+                  localStorage.setItem(`email`, res.data.email);
                   localStorage.setItem(`picture`, res.data.picture);
                   localStorage.setItem(`first_name`, res.data.first_name);
                   localStorage.setItem(`last_name`, res.data.last_name);
@@ -66,7 +65,19 @@ export default class Login extends Component {
     console.log("hi")
     if (localStorage.getItem("Facebook_Temp_User")){
    axios.post(`http://localhost:5000/loginFacebook/Facebook_${JSON.parse(localStorage.getItem("Facebook_Temp_User")).id}`,JSON.parse(localStorage.getItem("Facebook_Temp_User")))
-   .then(res => console.log(res))
+   .then(res => {
+    localStorage.setItem(`id`, res.data.id);
+    localStorage.setItem(`token`, res.data.token);
+    localStorage.setItem(`email`, res.data.email);
+    localStorage.setItem(`picture`, res.data.picture);
+    localStorage.setItem(`first_name`, res.data.first_name);
+    localStorage.setItem(`last_name`, res.data.last_name);
+    localStorage.setItem(`user_name`, res.data.user_name);
+    localStorage.setItem(`user`, JSON.stringify(res.data));
+    console.log(res.data)
+    this.props.history.push("/home");
+    window.location.reload(false);
+  })
     }
   }
 

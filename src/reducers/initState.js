@@ -1,5 +1,5 @@
 const initState = {
-  user: {},
+  user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
   nowPlaying: [],
   popular: [],
   comingSoon: [],

@@ -80,41 +80,14 @@ export function getFavorites() {
       });
   };
 }
-export function getRecommended() {
+export function addFavorite(movie) {
   return (dispatch) => {
     axios
-      .get(
-        `https://movieapplication1.herokuapp.com/recommendedMovies/${localStorage.getItem(
-          "id"
-        )}`
-      )
+      .post(`http://localhost:5000/saveMovie`, movie)
       .then((res) => {
-        dispatch({ type: "GET_RECOMMEDED", recommended: res.data });
-      });
-  };
-}
-export function addFavorite(movie, list) {
-  let new_movie = {
-    user_id: Number(localStorage.getItem("id")),
-    title: movie.title,
-    poster_path: movie.poster_path,
-    vote_average: movie.vote_average,
-    overview: movie.overview,
-    release_date: movie.release_date
-  };
-  if (movie.movie_id) {
-    new_movie.movie_id = movie.movie_id;
-  } else {
-    new_movie.movie_id = movie.id;
-  }
-  return (dispatch) => {
-    addRecommedations(movie.id);
-    console.log(new_movie);
-    axios
-      .post(`https://movieapplication1.herokuapp.com/saveMovies`, new_movie)
-      .then((res) => {
-        dispatch({ type: "ADD_FAVORITE", new_movie: new_movie });
-      });
+        dispatch({ type: "ADD_FAVORITE", payload: res.data });
+      })
+      .catch(err => console.log(err))
   };
 }
 export function deleteFavorite(id) {
@@ -131,28 +104,7 @@ export function deleteFavorite(id) {
       });
   };
 }
-export function addRecommedations(movie_id) {
-  let recommendations = [];
-  // let new_movie = {
-  //     user_id: Number(localStorage.getItem("id")),
-  //     movie_id: recommendation.id,
-  //     title: recommendation.title,
-  //     poster_path: recommendation.poster_path,
-  //     vote_average: recommendation.vote_average,
-  //     overview: recommendation.overview,
-  //     recommended_movie_id: movie_id,
-  //     release_date: recommendation.release_date
-  // }
-  axios
-    .get(
-      `https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=bab5bd152949b76eccda9216965fc0f1&language=en-US&page=1`
-    )
-    .then((res) => {
-      res.data.results.map((result) => {
-        recommedations(result, movie_id);
-      });
-    });
-}
+
 export function recommedations(movie, recommended_movie) {
   let new_movie = {
     user_id: Number(localStorage.getItem("id")),

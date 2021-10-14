@@ -8,11 +8,11 @@ import axios from "axios";
 import Loader from "../Loader/Loader";
 import { connect } from "react-redux";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { AiFillHeart } from 'react-icons/fa'
 import {
   getMovieInfo,
   addFavorite,
   deleteFavorite,
-  getRecommended,
   deleteRecommedations
 } from "../../actions/actions";
 function rand() {
@@ -263,12 +263,6 @@ const mapDispatchToProps = (dispatch) => {
     deleteFavorite: (id) => {
       dispatch(deleteFavorite(id));
     },
-    getRecommended: () => {
-      dispatch(getRecommended());
-    },
-    deleteRecommedations: (movie_id) => {
-      dispatch(deleteRecommedations(movie_id));
-    }
   };
 };
 

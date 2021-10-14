@@ -45,7 +45,8 @@ export const StoreReducer = (state = initState, action) => {
     case "ADD_FAVORITE":
       return {
         ...state,
-        favorites: [...state.favorites, action.new_movie]
+        favorites: action.payload.movies,
+        recommended:action.payload.recommendations
       };
     case "DELETE_FAVORITE":
       return {

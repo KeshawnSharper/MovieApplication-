@@ -13,7 +13,6 @@ import {
   getPopular,
   getUpcoming,
   getFavorites,
-  getRecommended,
   getUser
 } from "./actions/actions";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -35,8 +34,7 @@ function App(props) {
     props.getUpcoming();
     props.getTopRated();
     props.getFavorites();
-    props.getRecommended();
-    props.getUser();
+    // props.getUser();
 
   }, []);
   return (
@@ -118,9 +116,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     getFavorites: () => {
       dispatch(getFavorites());
-    },
-    getRecommended: () => {
-      dispatch(getRecommended());
     },
     getUser: () => {
       dispatch(getUser());
