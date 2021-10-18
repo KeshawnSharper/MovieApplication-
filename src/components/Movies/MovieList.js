@@ -118,17 +118,24 @@ const MovieList = (props) => {
           <>
             {search[0] ? (
               <>
-                {search[0].results.slice(page-1,page+11).map((movie) => (
+                {search ? search[0].results.slice(page-1,page+11).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"search"} movie={movie} />
                   </Grid>
-                ))}
+                )) : null}
               </>
             ) : (
               <div></div>
             )}
              <div style={{"display":"block","width":"100%"}}>
+               {search[0] ? (
+                 <>
               <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(search[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+               </>
+               )
+              :
+              null
+               }
               </div>
           </>
         ) : movieList === "favorites" ? (
