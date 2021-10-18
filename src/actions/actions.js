@@ -71,12 +71,12 @@ export function getFavorites() {
   return (dispatch) => {
     axios
       .get(
-        `https://movieapplication1.herokuapp.com/savedMovies/${Number(
+        `http://localhost:5000/savedMovies/${Number(
           localStorage.getItem("id")
         )}`
       )
       .then((res) => {
-        dispatch({ type: "GET_FAVORITES", favorites: res.data });
+        dispatch({ type: "GET_FAVORITES", payload: res.data });
       });
   };
 }

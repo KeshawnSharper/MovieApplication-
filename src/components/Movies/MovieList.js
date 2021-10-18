@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -37,7 +37,11 @@ const MovieList = (props) => {
     recommended
   } = props;
   const classes = useStyles();
-  console.log(movieList);
+  let [page,setPage] = useState(1)
+  function range(start, end) {
+    return Array(end - start + 1).fill().map((_, idx) => start + idx)
+  }
+  
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
@@ -46,11 +50,14 @@ const MovieList = (props) => {
           <>
             {nowPlaying[0] ? (
               <>
-                {nowPlaying[0].results.map((movie) => (
+                {nowPlaying[0].results.slice(page-1,page+11).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"nowPlaying"} movie={movie} />
                   </Grid>
                 ))}
+                <div style={{"display":"block","width":"100%"}}>
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(nowPlaying[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              </div>
               </>
             ) : (
               <div></div>
@@ -60,11 +67,14 @@ const MovieList = (props) => {
           <>
             {popular[0] ? (
               <>
-                {popular[0].results.map((movie) => (
+                {popular[0].results.slice(page-1,page+11).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"popular"} movie={movie} />
                   </Grid>
                 ))}
+              <div style={{"display":"block","width":"100%"}}>
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(popular[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              </div>
               </>
             ) : (
               <div></div>
@@ -74,11 +84,14 @@ const MovieList = (props) => {
           <>
             {upcoming[0] ? (
               <>
-                {upcoming[0].results.map((movie) => (
+                {upcoming[0].results.slice(page-1,page+11).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard movie={movie} list={"upcoming"} />
                   </Grid>
                 ))}
+                <div style={{"display":"block","width":"100%"}}>
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(upcoming[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              </div>
               </>
             ) : (
               <div></div>
@@ -88,11 +101,14 @@ const MovieList = (props) => {
           <>
             {topRated[0] ? (
               <>
-                {topRated[0].results.map((movie) => (
+                {topRated[0].results.slice(page-1,page+11).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"topRated"} movie={movie} />
                   </Grid>
                 ))}
+                 <div style={{"display":"block","width":"100%"}}>
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(topRated[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              </div>
               </>
             ) : (
               <div></div>
@@ -102,7 +118,7 @@ const MovieList = (props) => {
           <>
             {search[0] ? (
               <>
-                {search[0].results.map((movie) => (
+                {search[0].results.slice(page-1,page+11).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"search"} movie={movie} />
                   </Grid>
@@ -111,16 +127,22 @@ const MovieList = (props) => {
             ) : (
               <div></div>
             )}
+             <div style={{"display":"block","width":"100%"}}>
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(search[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              </div>
           </>
         ) : movieList === "favorites" ? (
           <>
             {favorites ? (
               <>
-                {favorites.map((movie) => (
+                {favorites.slice(page-1,page+11).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"favorites"} movie={movie} />
                   </Grid>
                 ))}
+                <div style={{"display":"block","width":"100%"}}>
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(favorites.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              </div>
               </>
             ) : (
               <div></div>
@@ -130,11 +152,14 @@ const MovieList = (props) => {
           <>
             {recommended ? (
               <>
-                {recommended.map((movie) => (
+                {recommended.slice(page-1,page+11).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"recommended"} movie={movie} />
                   </Grid>
                 ))}
+                <div style={{"display":"block","width":"100%"}}>
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(recommended.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              </div>
               </>
             ) : (
               <div></div>

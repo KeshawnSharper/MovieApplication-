@@ -40,7 +40,8 @@ export const StoreReducer = (state = initState, action) => {
     case "GET_FAVORITES":
       return {
         ...state,
-        favorites: action.favorites
+        favorites: action.payload.movies,
+        recommended:action.payload.recommendations
       };
     case "ADD_FAVORITE":
       return {
