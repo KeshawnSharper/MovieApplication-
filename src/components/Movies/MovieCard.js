@@ -48,7 +48,6 @@ class MovieCard extends Component {
               stars_earned={stars_earned}
               stars_not_earned={stars_not_earned}
             />
-            // Heart Icon that will change color depending on if the user has saved it.
            <div onClick={() => this.addFavorite(movie)}>
            <FaHeart  />
            </div>

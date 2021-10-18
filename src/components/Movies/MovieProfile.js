@@ -139,7 +139,7 @@ const MovieProfile = (props) => {
           // <FontAwesomeIcon icon={faStar} color="white" />
           <> </>
         ))}
-        <p>{movie.overview}</p>
+        <p>{movie.overview.length > 150 ? movie.overview.slice(0,149).toString() + "..." : movie.overview}</p>
 
         {/* {favorites.filter((favorite) => {
           return favorite.movie_id === Number(movie.id);
