@@ -4,6 +4,7 @@ import Facebook from "../Facebook";
 import { Link } from "react-router-dom";
 import Google from "../GoogleAuth/Google";
 import axios from "axios";
+import Loader from "react-loader-spinner";
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +14,8 @@ export default class Login extends Component {
       isFacebookValidated: false,
       googleUser: {},
       facebookUser: {},
-      user: {}
+      user: {},
+      loading:false
     };
     this.SubmitGoogleUser = this.SubmitGoogleUser.bind(this);
     this.SubmitFacebookUser = this.SubmitFacebookUser.bind(this);
@@ -29,9 +31,11 @@ export default class Login extends Component {
     });
   }
   Login = () => {
+    this.setState({...this.state,loading:true})
     axios
       .post(`http://localhost:5000/login`, this.state.user)
       .then((res) => {
+        this.setState({...this.state,loading:false})
         localStorage.setItem(`token`, res.data.token);
         localStorage.setItem(`id`, res.data.userid);
         localStorage.setItem(`email`, res.data.email);
@@ -83,6 +87,16 @@ export default class Login extends Component {
 
   render() {
     return (
+      <>
+      {
+      this.state.loading ?
+        (
+      <div style={{"background":"black","margin":"0 auto"}}>
+    <Loader style={{"margin":"0 auto","textAlign":"center"}}type="Puff" color="#00BFFF" /> 
+    <h2 style={{"color":"white","textAlign":"center"}}>Authenicating</h2>
+    </div>
+        )
+        :
       <div className="login-box">
         <h2>Login</h2>
         <form>
@@ -104,7 +118,7 @@ export default class Login extends Component {
             />
             <label>Password</label>
           </div>
-          <a href="#" onClick={this.Login}>
+          <a onClick={() => this.Login()}>
             <span />
             <span />
             <span />
@@ -129,6 +143,8 @@ export default class Login extends Component {
           </Link>
         </h2>
       </div>
+      }
+      </>
     );
   }
 }
