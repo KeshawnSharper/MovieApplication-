@@ -52,11 +52,7 @@ export default class Login extends Component {
                 .then((res) => {
                   localStorage.setItem(`id`, res.data.id);
                   localStorage.setItem(`token`, res.data.token);
-                  localStorage.setItem(`email`, res.data.email);
-                  localStorage.setItem(`picture`, res.data.picture);
-                  localStorage.setItem(`first_name`, res.data.first_name);
-                  localStorage.setItem(`last_name`, res.data.last_name);
-                  localStorage.setItem(`user_name`, res.data.user_name);
+                  localStorage.setItem("user",JSON.stringify(res.data))
                   this.props.history.push("/home");
                   window.location.reload(false);
                 })
@@ -70,15 +66,7 @@ export default class Login extends Component {
     if (localStorage.getItem("Facebook_Temp_User")){
    axios.post(`http://localhost:5000/loginFacebook/Facebook_${JSON.parse(localStorage.getItem("Facebook_Temp_User")).id}`,JSON.parse(localStorage.getItem("Facebook_Temp_User")))
    .then(res => {
-    localStorage.setItem(`id`, res.data.id);
-    localStorage.setItem(`token`, res.data.token);
-    localStorage.setItem(`email`, res.data.email);
-    localStorage.setItem(`picture`, res.data.picture);
-    localStorage.setItem(`first_name`, res.data.first_name);
-    localStorage.setItem(`last_name`, res.data.last_name);
-    localStorage.setItem(`user_name`, res.data.user_name);
-    localStorage.setItem(`user`, JSON.stringify(res.data));
-    console.log(res.data)
+    localStorage.setItem("user",res.data)
     this.props.history.push("/home");
     window.location.reload(false);
   })
