@@ -128,8 +128,9 @@ export default class Login extends Component {
           <br />
           <br />
           <div style={{ display: "inline-flex" }}>
-            <Google SubmitGoogleUser={() => this.SubmitGoogleUser()} />
-            <Facebook SubmitFacebookUser={() => this.SubmitFacebookUser()} />
+            <Google  SubmitGoogleUser={() => this.SubmitGoogleUser()} />
+            {/* Removing the Facebook login until I find a way for it to not login on render */}
+            {/* <Facebook SubmitFacebookUser={() => this.SubmitFacebookUser()} /> */}
           </div>
           <br />
         </form>

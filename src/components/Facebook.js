@@ -19,7 +19,6 @@ export default class Facebook extends Component {
    
   };
   responseFacebook = (response) => {
-    console.log(response);
     localStorage.setItem("Facebook_Temp_User",JSON.stringify(response))
     this.props.SubmitFacebookUser();
     // console.log(response);
@@ -36,7 +35,7 @@ export default class Facebook extends Component {
           height="50%"
           autoLoad={true}
           fields="name,email,picture"
-          callback={this.responseFacebook}
+          callback={(response) => this.responseFacebook(response)}
         />
       );
     }

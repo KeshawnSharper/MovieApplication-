@@ -14,11 +14,14 @@ export default class Register extends Component {
         first_name: "",
         last_name: "",
         password: "",
+        re_password:"",
         email: "",
         picture:
           "https://res.cloudinary.com/di449masi/image/upload/v1607974203/avatar-icon-design-for-man-vector-id648229986_cpib40.jpg"
-      },
-      loading:false
+        
+        },
+      loading:false,
+      error:{message:""}
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,6 +35,13 @@ export default class Register extends Component {
     });
   };
   handleSubmit = () => {
+    console.log(this.state.user)
+    if (!Object.keys(this.state.user).every(prop => this.state.user[prop] !== "")){
+      return this.setState({...this.state,error:{...this.state.error,message:"Please fill all fields"}})
+    }
+    if (this.state.user.re_password !== this.state.user.password){
+      return this.setState({...this.state,error:{...this.state.error,message:"Passwords don't match"}})
+    }
     this.setState({
       ...this.state,
       loading: true
@@ -39,20 +49,13 @@ export default class Register extends Component {
     axios
       .post("http://localhost:5000/register", this.state.user)
       .then((res) => {
-       
-        axios
-          .post("http://localhost:5000/login", {
-            email: this.state.user.email,
-            password: this.state.user.password
-          })
-          .then((res) =>{ 
-            this.setState({
-              ...this.state,
-              loading: false
-            })
-            console.log(res.data)});
-      });
-  };
+
+      })
+      .catch(err => {
+        console.log(err.response.data.message)
+        this.setState({...this.state,error:{...this.state.error,message:err.response.data.message},loading:false})})
+        console.log(this.state.error)
+    }
   render() {
     return (
       <>
@@ -66,13 +69,15 @@ export default class Register extends Component {
         )
         :
       <div className="login-box">
-        <h2 style={{ color: "white" }}>Register</h2>
+        <h2 style={{ color: "white"}}>Register</h2>
+        <p style={{ color: "red","marginBottom":"20px"  }}>{this.state.error.message !== "" ? this.state.error.message : null}</p>
         <form>
           <div className="user-box">
             <input
               type="text"
               name="user_name"
               onChange={(e) => this.handleChange(e)}
+              value={this.state.user.user_name}
               required
             />
             <label>Username</label>
@@ -82,6 +87,7 @@ export default class Register extends Component {
               type="text"
               name="first_name"
               onChange={(e) => this.handleChange(e)}
+              value={this.state.user.first_name}
               required
             />
             <label>First Name</label>
@@ -91,6 +97,7 @@ export default class Register extends Component {
               type="text"
               name="last_name"
               onChange={(e) => this.handleChange(e)}
+              value={this.state.user.last_name}
               required
             />
             <label>Last Name</label>
@@ -100,6 +107,7 @@ export default class Register extends Component {
               type="text"
               name="email"
               onChange={(e) => this.handleChange(e)}
+              value={this.state.user.email}
               required
             />
             <label>Email</label>
@@ -109,6 +117,17 @@ export default class Register extends Component {
               type="password"
               onChange={(e) => this.handleChange(e)}
               name="password"
+              value={this.state.user.password}
+              required
+            />
+            <label>Password</label>
+          </div>
+          <div className="user-box">
+            <input
+              type="password"
+              onChange={(e) => this.handleChange(e)}
+              value={this.state.user.re_password}
+              name="re_password"
               required
             />
             <label>Password</label>

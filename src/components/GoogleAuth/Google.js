@@ -11,6 +11,7 @@ export default class Google extends React.Component {
   responseGoogle = (response) => {
     console.log(response)
     localStorage.setItem("google_temp_user",JSON.stringify(response))
+    this.props.SubmitGoogleUser();
   };
   render() {
     return (
