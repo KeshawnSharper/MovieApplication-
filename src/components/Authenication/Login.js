@@ -15,7 +15,8 @@ export default class Login extends Component {
       googleUser: {},
       facebookUser: {},
       user: {},
-      loading:false
+      loading:false,
+      error:{message:""}
     };
     this.SubmitGoogleUser = this.SubmitGoogleUser.bind(this);
     this.SubmitFacebookUser = this.SubmitFacebookUser.bind(this);
@@ -39,13 +40,16 @@ export default class Login extends Component {
         localStorage.setItem(`token`, res.data.token);
         localStorage.setItem(`id`, res.data.userid);
         localStorage.setItem(`email`, res.data.email);
-        localStorage.setItem(`picture`, res.data.picture);
-        localStorage.setItem(`first_name`, res.data.first_name);
-        localStorage.setItem(`last_name`, res.data.last_name);
-        localStorage.setItem(`user_name`, res.data.user_name);
+        localStorage.setItem(`user`, JSON.stringify(res.data));
+        
         this.props.history.push("/home");
         window.location.reload(false);
-      });
+      })
+      .catch(err => {
+        this.setState({...this.state,loading:false})
+        this.setState({...this.state,error:{...this.state.error,message:err.response.data.message},loading:false})
+        console.log(err)
+      })
   };
   SubmitGoogleUser = (user) => {
               axios.post(`http://localhost:5000/loginGoogle/google_${JSON.parse(localStorage.getItem("google_temp_user")).googleId}`,JSON.parse(localStorage.getItem("google_temp_user")))
@@ -87,6 +91,7 @@ export default class Login extends Component {
         :
       <div className="login-box">
         <h2>Login</h2>
+        <p style={{ color: "red","marginBottom":"20px"  }}>{this.state.error.message !== "" ? this.state.error.message : null}</p>
         <form>
           <div className="user-box">
             <input

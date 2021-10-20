@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Avatar(props) {
   const { user, editUser } = props;
+  console.log("avatar",user.picture) 
   let [updatedUser, setUpdatedUser] = useState({
     first_name: "",
     last_name: "",
@@ -155,7 +156,7 @@ function Avatar(props) {
         }}
         className="user-icon"
         onClick={handleOpen}
-        src={props.user.picture}
+        src={user.picture ? props.user.picture : null}
       />
       <Modal
         open={open}

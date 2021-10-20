@@ -5,6 +5,7 @@ import axios from "axios";
 import Google from "../GoogleAuth/Google";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
+import Login from "./Login";
 export default class Register extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +38,7 @@ export default class Register extends Component {
   handleSubmit = () => {
     console.log(this.state.user)
     if (!Object.keys(this.state.user).every(prop => this.state.user[prop] !== "")){
-      return this.setState({...this.state,error:{...this.state.error,message:"Please fill all fields"}})
+      return this.setState({...this.state,error:{...this.state.error,message:"Please Fill all fields"}})
     }
     if (this.state.user.re_password !== this.state.user.password){
       return this.setState({...this.state,error:{...this.state.error,message:"Passwords don't match"}})
@@ -49,10 +50,19 @@ export default class Register extends Component {
     axios
       .post("http://localhost:5000/register", this.state.user)
       .then((res) => {
-
+        console.log("hello")
+        axios.post(`http://localhost:5000/login`, this.state.user).then((res) => {
+        this.setState({...this.state,loading:false})
+        localStorage.setItem(`token`, res.data.token);
+        localStorage.setItem(`id`, res.data.userid);
+        localStorage.setItem(`email`, res.data.email);
+        localStorage.setItem(`user`, JSON.stringify(res.data));
+        this.props.history.push("/home");
+        window.location.reload(false);
+      })
       })
       .catch(err => {
-        console.log(err.response.data.message)
+        console.log(err)
         this.setState({...this.state,error:{...this.state.error,message:err.response.data.message},loading:false})})
         console.log(this.state.error)
     }
