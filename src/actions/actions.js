@@ -76,8 +76,11 @@ export function getFavorites() {
         }`
       )
       .then((res) => {
+        let obj = {}
+        res.data.movies.map(item => obj[item.movie_id] = true)
+        console.log("obj",obj)
         console.log(JSON.parse(localStorage.getItem("user")).id)
-        dispatch({ type: "GET_FAVORITES", payload: res.data });
+        dispatch({ type: "GET_FAVORITES", payload: res.data,obj:obj });
       });
   };
 }
@@ -92,15 +95,17 @@ export function addFavorite(movie) {
       .catch(err => console.log(err))
   };
 }
-export function deleteFavorite(id) {
+export function deleteFavorite(id,movie_id) {
+  console.log(id,movie_id)
   return (dispatch) => {
     axios
       .delete(
-        `http://localhost:5000/deleteMovie/${id}/${JSON.parse(localStorage.getItem("user")).id}`
-      )
+        `http://localhost:5000/deleteMovie/${id}/${JSON.parse(localStorage.getItem("user")).id}/${movie_id}`)
       .then((res) => {
+        let obj = {}
+        res.data.movies.map(item => obj[item.movie_id] = true)
         console.log(res.data)
-        dispatch({ type: "DELETE_FAVORITE", payload: res.data,id:id });
+        dispatch({ type: "DELETE_FAVORITE", payload: res.data,id:id !== "dont" ? id : res.data.id,obj:obj });
       });
   };
 }

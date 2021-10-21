@@ -29,9 +29,15 @@ class MovieCard extends Component {
       stars_not_earned.push(i);
     }
     const handleClick = () => {
-      if(this.props.favorite_obj[movie.movie_id]){
+      if(this.props.favorite_obj[movie.movie_id] || this.props.favorite_obj[movie.id]){
         console.log("delete")
-        this.deleteFavorite(movie.id)
+        if(movie.movie_id){
+          this.deleteFavorite(movie.id,null)
+        }
+        else{
+          console.log(movie)
+        this.deleteFavorite("dont",movie.id)
+        }
       }
       else{
       console.log("hello")
@@ -87,8 +93,8 @@ const mapDispatchToProps = (dispatch) => {
     addFavorite: (movie) => {
       dispatch(addFavorite(movie));
     },
-    deleteFavorite: (id) => {
-      dispatch(deleteFavorite(id))
+    deleteFavorite: (id,movie_id) => {
+      dispatch(deleteFavorite(id,movie_id))
     }
   };
 };
