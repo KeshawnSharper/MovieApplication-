@@ -38,23 +38,32 @@ export const StoreReducer = (state = initState, action) => {
         movieInfo: action.movieInfo
       };
     case "GET_FAVORITES":
+      let obj = {}
+      action.payload.movies.map(movie => obj[movie.movie_id] = true)
       return {
         ...state,
         favorites: action.payload.movies,
-        recommended:action.payload.recommendations
+        recommended:action.payload.recommendations,
+        favorite_obj:obj
       };
     case "ADD_FAVORITE":
+      let newObj = {}
+      action.payload.movies.map(movie => newObj[movie.movie_id] = true)
       return {
         ...state,
-        favorites: action.payload.movies,
-        recommended:action.payload.recommendations
+        favorites: [...state.favorites,action.movie],
+        recommended:action.payload.recommendations,
+        favorite_obj:newObj
       };
     case "DELETE_FAVORITE":
+      let delObj = {}
+      action.payload.movies.map(movie => delObj[movie.movie_id] = true)
       return {
         ...state,
         favorites: state.favorites.filter((favorite) => {
-          return favorite.movie_id !== action.movie;
-        })
+          return favorite.id !== action.id;
+        }),
+        favorite_obj:delObj
       };
     case "ADD_RECOMMEDED":
       return {

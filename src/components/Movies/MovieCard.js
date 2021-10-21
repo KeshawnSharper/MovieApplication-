@@ -4,18 +4,19 @@ import MovieProfile from "./MovieProfile";
 import { FaHeart } from 'react-icons/fa'
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { addFavorite } from "../../actions/actions";
+import { addFavorite,deleteFavorite } from "../../actions/actions";
 import { connect } from "react-redux";
 
 class MovieCard extends Component {
   constructor(props){
     super(props)
     this.addFavorite = this.props.addFavorite.bind(this)
+    this.deleteFavorite = this.props.deleteFavorite.bind(this)
   }
 
   render() {
-    console.log(this.addFavorite)
-    const { movie, list } = this.props;
+    console.log(this.props)
+    const { movie, list,favorite_obj } = this.props;
     let stars_earned = [];
     let stars_not_earned = [];
     for (let i = 1; i <= 5 - (10 - Math.floor(movie.vote_average)); i++) {
@@ -27,10 +28,18 @@ class MovieCard extends Component {
     for (let i = stars_earned[stars_earned.length - 1] + 1; i <= 5; i++) {
       stars_not_earned.push(i);
     }
-    const saveMovie = (movie) => {
-      movie.userID = localStorage.getItem("id")
-      axios.post("http://localhost:5000/saveMovie",movie).then(res => console.log(res))
+    const handleClick = () => {
+      if(this.props.favorite_obj[movie.movie_id]){
+        console.log("delete")
+        this.deleteFavorite(movie.id)
+      }
+      else{
+      console.log("hello")
+      movie.userID = JSON.parse(localStorage.getItem("user")).id
+      this.addFavorite(movie)
+      }
     }
+    console.log(this.props.favorite_obj)
     return (
       <div className="flip-card">
         <div className="flip-card-inner">
@@ -48,8 +57,19 @@ class MovieCard extends Component {
               stars_earned={stars_earned}
               stars_not_earned={stars_not_earned}
             />
-           <div onClick={() => this.addFavorite(movie)}>
-           <FaHeart  />
+           <div onClick={() => handleClick()}>
+             {this.props.favorite_obj ? 
+             <>
+             {movie.movie_id ?
+             <FaHeart  color={this.props.favorite_obj[movie.movie_id] === true ? "red": "white"}/>
+             :
+            <FaHeart  color={this.props.favorite_obj[movie.id] === true ? "red": "white"}/>
+            }
+            </>
+            : 
+            null
+          }
+           
            </div>
           </div>
         </div>
@@ -57,12 +77,19 @@ class MovieCard extends Component {
     );
   }
 }
-
+function mapStateToProps(state) {
+  return {
+    favorite_obj:state.favorite_obj
+  };
+}
 const mapDispatchToProps = (dispatch) => {
   return {
     addFavorite: (movie) => {
       dispatch(addFavorite(movie));
+    },
+    deleteFavorite: (id) => {
+      dispatch(deleteFavorite(id))
     }
   };
 };
-export default connect(null,mapDispatchToProps)(MovieCard);
+export default connect(mapStateToProps,mapDispatchToProps)(MovieCard);

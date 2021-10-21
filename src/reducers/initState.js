@@ -8,6 +8,7 @@ const initState = {
   search: [],
   movieInfo: {},
   favorites: [],
-  recommended: []
+  recommended: [],
+  favorite_obj:{}
 };
 export default initState;

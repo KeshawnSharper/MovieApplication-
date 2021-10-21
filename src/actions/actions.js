@@ -71,36 +71,36 @@ export function getFavorites() {
   return (dispatch) => {
     axios
       .get(
-        `http://localhost:5000/savedMovies/${Number(
-          localStorage.getItem("id")
-        )}`
+        `http://localhost:5000/savedMovies/${
+          JSON.parse(localStorage.getItem("user")).id
+        }`
       )
       .then((res) => {
+        console.log(JSON.parse(localStorage.getItem("user")).id)
         dispatch({ type: "GET_FAVORITES", payload: res.data });
       });
   };
 }
 export function addFavorite(movie) {
+
   return (dispatch) => {
     axios
       .post(`http://localhost:5000/saveMovie`, movie)
       .then((res) => {
-        dispatch({ type: "ADD_FAVORITE", payload: res.data });
+        dispatch({ type: "ADD_FAVORITE", payload: res.data,movie:movie });
       })
       .catch(err => console.log(err))
   };
 }
 export function deleteFavorite(id) {
-  deleteRecommedations(id);
   return (dispatch) => {
     axios
       .delete(
-        `https://movieapplication1.herokuapp.com/deleteMovie/${id}/${Number(
-          localStorage.getItem("id")
-        )}`
+        `http://localhost:5000/deleteMovie/${id}/${JSON.parse(localStorage.getItem("user")).id}`
       )
       .then((res) => {
-        dispatch({ type: "DELETE_FAVORITE", movie: id });
+        console.log(res.data)
+        dispatch({ type: "DELETE_FAVORITE", payload: res.data,id:id });
       });
   };
 }
