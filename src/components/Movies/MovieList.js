@@ -50,7 +50,7 @@ const MovieList = (props) => {
           <>
             {nowPlaying[0] ? (
               <>
-                {nowPlaying[0].results.slice(page-1,page+11).map((movie) => (
+                {nowPlaying[0].results.slice((page - 1) * 12,(page * 12 - 1) + 1).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"nowPlaying"} movie={movie} />
                   </Grid>
@@ -67,7 +67,7 @@ const MovieList = (props) => {
           <>
             {popular[0] ? (
               <>
-                {popular[0].results.slice(page-1,page+11).map((movie) => (
+                {popular[0].results.slice((page - 1) * 12,(page * 12 - 1) + 1).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"popular"} movie={movie} />
                   </Grid>
@@ -84,7 +84,7 @@ const MovieList = (props) => {
           <>
             {upcoming[0] ? (
               <>
-                {upcoming[0].results.slice(page-1,page+11).map((movie) => (
+                {upcoming[0].results.slice((page - 1) * 12,(page * 12 - 1) + 1).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard movie={movie} list={"upcoming"} />
                   </Grid>
@@ -101,7 +101,7 @@ const MovieList = (props) => {
           <>
             {topRated[0] ? (
               <>
-                {topRated[0].results.slice(page-1,page+11).map((movie) => (
+                {topRated[0].results.slice((page - 1) * 12,(page * 12 - 1) + 1).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"topRated"} movie={movie} />
                   </Grid>
@@ -118,7 +118,7 @@ const MovieList = (props) => {
           <>
             {search[0] ? (
               <>
-                {search ? search[0].results.slice(page-1,page+11).map((movie) => (
+                {search ? search[0].resultsslice((page - 1) * 12,(page * 12 - 1) + 1).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"search"} movie={movie} />
                   </Grid>
@@ -142,7 +142,7 @@ const MovieList = (props) => {
           <>
             {favorites ? (
               <>
-                {favorites.slice(page-1,page+11).map((movie) => (
+                {favorites.slice((page - 1) * 12,(page * 12 - 1) + 1).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"favorites"} movie={movie} />
                   </Grid>
@@ -156,10 +156,11 @@ const MovieList = (props) => {
             )}
           </>
         ) : movieList === "recommended" ? (
+            
           <>
             {recommended ? (
               <>
-                {recommended.slice(page-1,page+11).map((movie) => (
+                {recommended.slice((page - 1) * 12,(page * 12 - 1) + 1).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"recommended"} movie={movie} />
                   </Grid>

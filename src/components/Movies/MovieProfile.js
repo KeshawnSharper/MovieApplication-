@@ -50,7 +50,8 @@ const MovieProfile = (props) => {
     stars_earned,
     stars_not_earned,
     list,
-    favorites
+    favorites,
+    recommended
   } = props;
   const [open, setOpen] = useState(false);
 
@@ -59,6 +60,7 @@ const MovieProfile = (props) => {
     if (list === "favorites") {
       setIsFavorite(true);
     } else if (list === "recommended") {
+      console.log(movie)
       setIsFavorite(
         favorites.filter((favorite) => {
           return favorite.movie_id === Number(movie.movie_id);
@@ -77,7 +79,7 @@ const MovieProfile = (props) => {
 
   const [modalStyle] = useState(getModalStyle);
   const handleOpen = () => {
-    if (list === "favorites" || list === "recommended") {
+    if (list === "favorites") {
       getMovieInfo(movie.movie_id);
     } else {
       getMovieInfo(movie.id);
@@ -94,7 +96,7 @@ const MovieProfile = (props) => {
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           /> */}
           <h1>{movieInfo.title}</h1>
-          <h4>{movieInfo.release_date}</h4>
+          <h4>{ movieInfo.release_date}</h4>
           <span className="minutes">{movieInfo.runtime} min</span>
           {movieInfo.genres ? (
             <>
@@ -107,7 +109,7 @@ const MovieProfile = (props) => {
           )}
         </div>
         <div className="movie_desc">
-          <p className="text">{movieInfo.overview}</p>
+          <p className="text">{ movieInfo.overview}</p>
         </div>
         <div className="movie_social">
           <ul>
@@ -129,7 +131,7 @@ const MovieProfile = (props) => {
   return (
     <>
       <h1 onClick={() => handleOpen()} style={{cursor:"pointer"}}>{movie.title}</h1>
-      <p>{movie.vote_average}</p>
+      <p>{list === "recommended" ? movie.vote_average : movie.vote_average}</p>
       <div>
         {stars_earned.map((star) => (
           // <FontAwesomeIcon icon={faStar} color="Gold" />
