@@ -33,9 +33,10 @@ function App(props) {
     props.getPopular();
     props.getUpcoming();
     props.getTopRated();
-    props.getFavorites();
-    // props.getUser();
-
+    if (localStorage.getItem("id")){
+      props.getFavorites();
+      props.getUser();
+    }
   }, []);
   return (
     <div className="App">

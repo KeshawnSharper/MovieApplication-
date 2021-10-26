@@ -16,7 +16,7 @@ class MovieCard extends Component {
 
   render() {
     console.log(this.props)
-    const { movie, list,favorite_obj } = this.props;
+    const { movie, list,favorite_obj,user } = this.props;
     let stars_earned = [];
     let stars_not_earned = [];
     for (let i = 1; i <= 5 - (10 - Math.floor(movie.vote_average)); i++) {
@@ -41,7 +41,7 @@ class MovieCard extends Component {
       }
       else{
       console.log("hello")
-      movie.userID = JSON.parse(localStorage.getItem("user")).id
+      movie.userID = user.id
       this.addFavorite(movie)
       }
     }
@@ -67,9 +67,9 @@ class MovieCard extends Component {
              {this.props.favorite_obj ? 
              <>
              {movie.movie_id ?
-             <FaHeart  color={this.props.favorite_obj[movie.movie_id] === true ? "red": "white"}/>
+             <FaHeart  style={{"cursor":"pointer"}} color={this.props.favorite_obj[movie.movie_id] === true ? "red": "white"}/>
              :
-            <FaHeart  color={this.props.favorite_obj[movie.id] === true ? "red": "white"}/>
+            <FaHeart  style={{"cursor":"pointer"}} color={this.props.favorite_obj[movie.id] === true ? "red": "white"}/>
             }
             </>
             : 
@@ -85,7 +85,8 @@ class MovieCard extends Component {
 }
 function mapStateToProps(state) {
   return {
-    favorite_obj:state.favorite_obj
+    favorite_obj:state.favorite_obj,
+    user:state.user
   };
 }
 const mapDispatchToProps = (dispatch) => {

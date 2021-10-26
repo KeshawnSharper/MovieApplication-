@@ -34,7 +34,7 @@ export default class Login extends Component {
   Login = () => {
     this.setState({...this.state,loading:true})
     axios
-      .post(`http://localhost:5000/login`, this.state.user)
+      .post(`https://movie-app-be.herokuapp.com/login`, this.state.user)
       .then((res) => {
         this.setState({...this.state,loading:false})
         localStorage.setItem(`token`, res.data.token);
@@ -52,7 +52,7 @@ export default class Login extends Component {
       })
   };
   SubmitGoogleUser = (user) => {
-              axios.post(`http://localhost:5000/loginGoogle/google_${JSON.parse(localStorage.getItem("google_temp_user")).googleId}`,JSON.parse(localStorage.getItem("google_temp_user")))
+              axios.post(`https://movie-app-be.herokuapp.com/loginGoogle/google_${JSON.parse(localStorage.getItem("google_temp_user")).googleId}`,JSON.parse(localStorage.getItem("google_temp_user")))
                 .then((res) => {
                   localStorage.setItem(`id`, res.data.id);
                   localStorage.setItem(`token`, res.data.token);
@@ -68,7 +68,7 @@ export default class Login extends Component {
   SubmitFacebookUser = (user) => {
     console.log("hi")
     if (localStorage.getItem("Facebook_Temp_User")){
-   axios.post(`http://localhost:5000/loginFacebook/Facebook_${JSON.parse(localStorage.getItem("Facebook_Temp_User")).id}`,JSON.parse(localStorage.getItem("Facebook_Temp_User")))
+   axios.post(`https://movie-app-be.herokuapp.com/loginFacebook/Facebook_${JSON.parse(localStorage.getItem("Facebook_Temp_User")).id}`,JSON.parse(localStorage.getItem("Facebook_Temp_User")))
    .then(res => {
     localStorage.setItem("user",res.data)
     this.props.history.push("/home");

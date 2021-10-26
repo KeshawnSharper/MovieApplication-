@@ -68,27 +68,23 @@ export function getMovieInfo(id) {
   };
 }
 export function getFavorites() {
+  console.log(localStorage.getItem("id"))
   return (dispatch) => {
-    axios
-      .get(
-        `http://localhost:5000/savedMovies/${
-          JSON.parse(localStorage.getItem("user")).id
-        }`
-      )
+    axios.get(`https://movie-app-be.herokuapp.com/savedMovies/${localStorage.getItem("id")}`)
       .then((res) => {
         let obj = {}
+        console.log(res.data)
         res.data.movies.map(item => obj[item.movie_id] = true)
         console.log("obj",obj)
-        console.log(JSON.parse(localStorage.getItem("user")).id)
         dispatch({ type: "GET_FAVORITES", payload: res.data,obj:obj });
       });
   };
 }
 export function addFavorite(movie) {
-
+  
   return (dispatch) => {
     axios
-      .post(`http://localhost:5000/saveMovie`, movie)
+      .post(`https://movie-app-be.herokuapp.com/saveMovie`, movie)
       .then((res) => {
         dispatch({ type: "ADD_FAVORITE", payload: res.data,movie:movie });
       })
@@ -100,7 +96,7 @@ export function deleteFavorite(id,movie_id) {
   return (dispatch) => {
     axios
       .delete(
-        `http://localhost:5000/deleteMovie/${id}/${JSON.parse(localStorage.getItem("user")).id}/${movie_id}`)
+        `https://movie-app-be.herokuapp.com/deleteMovie/${id}/${JSON.parse(localStorage.getItem("user")).id}/${movie_id}`)
       .then((res) => {
         let obj = {}
         res.data.movies.map(item => obj[item.movie_id] = true)
@@ -123,7 +119,7 @@ export function recommedations(movie, recommended_movie) {
   };
 
   axios
-    .post(`https://movieapplication1.herokuapp.com/recommendedMovies`, new_movie)
+    .post(`https://movie-app-be.herokuapp.com/recommendedMovies`, new_movie)
     .then((res) => {
       console.log(res.data);
     });
@@ -150,26 +146,21 @@ export function getUser() {
   return (dispatch) => {
     axios
       .get(
-        `https://movieapplication1.herokuapp.com/users/${localStorage.getItem(
-          "id"
-        )}`
+        `https://movie-app-be.herokuapp.com/users/${localStorage.getItem("id")}`
       )
       .then((res) => {
-        if (res.data === []) {
-          localStorage.clear();
-        }
-        console.log("get", res.data);
-        dispatch({ type: "GET_USER", user: res.data[0] });
+        dispatch({ type: "GET_USER", user: res.data.user });
       });
   };
 }
 export function editUser(user) {
-  user.id = Number(localStorage.getItem("id"));
+  
   return (dispatch) => {
     axios
-      .put(`https://movieapplication1.herokuapp.com/users`, user)
+      .put(`https://movie-app-be.herokuapp.com/users/${localStorage.getItem("id")}`, user)
       .then((res) => {
-        dispatch({ type: "UPDATE_USER", updated_user: user });
+        localStorage.setItem("user",JSON.stringify(user))
+        dispatch({ type: "UPDATE_USER", updated_user: res.data.user});
       });
   };
 }

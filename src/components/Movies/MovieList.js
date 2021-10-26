@@ -118,7 +118,7 @@ const MovieList = (props) => {
           <>
             {search[0] ? (
               <>
-                {search ? search[0].resultsslice((page - 1) * 12,(page * 12 - 1) + 1).map((movie) => (
+                {search ? search[0].results.slice((page - 1) * 12,(page * 12 - 1) + 1).map((movie) => (
                   <Grid item xs={12} md={4} spacing={12}>
                     <MovieCard list={"search"} movie={movie} />
                   </Grid>
