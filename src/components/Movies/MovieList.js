@@ -32,10 +32,11 @@ const MovieList = (props) => {
     upcoming,
     topRated,
     favorites,
-    recommended
+    recommended,
+    changePage,
+    page
   } = props;
   const classes = useStyles();
-  let [page,setPage] = useState(1)
   function range(start, end) {
     return Array(end - start + 1).fill().map((_, idx) => start + idx)
   }
@@ -54,7 +55,7 @@ const MovieList = (props) => {
                   </Grid>
                 ))}
                 <div style={{"display":"block","width":"100%"}}>
-              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(nowPlaying[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(nowPlaying[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}} onClick={() => changePage(i)}>{i}</span>)}
               </div>
               </>
             ) : (
@@ -71,7 +72,7 @@ const MovieList = (props) => {
                   </Grid>
                 ))}
               <div style={{"display":"block","width":"100%"}}>
-              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(popular[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(popular[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}} onClick={() => changePage(i)}>{i}</span>)}
               </div>
               </>
             ) : (
@@ -88,7 +89,7 @@ const MovieList = (props) => {
                   </Grid>
                 ))}
                 <div style={{"display":"block","width":"100%"}}>
-              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(upcoming[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(upcoming[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}} onClick={() => changePage(i)}>{i}</span>)}
               </div>
               </>
             ) : (
@@ -105,7 +106,7 @@ const MovieList = (props) => {
                   </Grid>
                 ))}
                  <div style={{"display":"block","width":"100%"}}>
-              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(topRated[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(topRated[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}} onClick={() => changePage(i)}>{i}</span>)}
               </div>
               </>
             ) : (
@@ -128,7 +129,7 @@ const MovieList = (props) => {
              <div style={{"display":"block","width":"100%"}}>
                {search[0] ? (
                  <>
-              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(search[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(search[0].results.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}} onClick={() => changePage(i)}>{i}</span>)}
                </>
                )
               :
@@ -146,7 +147,7 @@ const MovieList = (props) => {
                   </Grid>
                 ))}
                 <div style={{"display":"block","width":"100%"}}>
-              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(favorites.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(favorites.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => changePage(i)}>{i}</span>)}
               </div>
               </>
             ) : (
@@ -164,7 +165,7 @@ const MovieList = (props) => {
                   </Grid>
                 ))}
                 <div style={{"display":"block","width":"100%"}}>
-              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(recommended.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}}onClick={() => setPage(i)}>{i}</span>)}
+              <span style={{"marginRight":"5px"}}>Page</span> {range(1,Math.ceil(Number(recommended.length / 12))).map(i => <span style={{"marginRight":"5px","cursor":"pointer","color":page === i ? "red" : "black"}} onClick={() => changePage(i)}>{i}</span>)}
               </div>
               </>
             ) : (

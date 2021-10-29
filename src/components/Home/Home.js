@@ -20,7 +20,8 @@ class Home extends Component {
       name: "",
       email: "",
       picture: "",
-      movieList: "nowPlaying"
+      movieList: "nowPlaying",
+      page:1
     };
   }
 
@@ -65,7 +66,8 @@ class Home extends Component {
             <li
               onClick={() => {
                 this.setState({
-                  movieList: "nowPlaying"
+                  movieList: "nowPlaying",
+                  page:1
                 });
               }}
               className={this.state.movieList === "nowPlaying" ? "active" : ""}
@@ -75,7 +77,8 @@ class Home extends Component {
             <li
               onClick={() => {
                 this.setState({
-                  movieList: "upcoming"
+                  movieList: "upcoming",
+                  page:1
                 });
               }}
               className={this.state.movieList === "upcoming" ? "active" : ""}
@@ -84,7 +87,8 @@ class Home extends Component {
             </li>
             <li
               onClick={() => {
-                this.setState({ movieList: "popular" });
+                this.setState({ movieList: "popular",
+                page:1 });
               }}
               className={this.state.movieList === "popular" ? "active" : ""}
             >
@@ -92,7 +96,8 @@ class Home extends Component {
             </li>
             <li
               onClick={() => {
-                this.setState({ movieList: "topRated" });
+                this.setState({ movieList: "topRated",
+                page:1 });
               }}
               className={this.state.movieList === "topRated" ? "active" : ""}
             >
@@ -100,7 +105,8 @@ class Home extends Component {
             </li>
             <li
               onClick={() => {
-                this.setState({ movieList: "favorites" });
+                this.setState({ movieList: "favorites",
+                page:1 });
               }}
               className={this.state.movieList === "favorites" ? "active" : ""}
             >
@@ -108,7 +114,8 @@ class Home extends Component {
             </li>
             <li
               onClick={() => {
-                this.setState({ movieList: "recommended" });
+                this.setState({ movieList: "recommended",
+                page:1 });
               }}
               className={this.state.movieList === "recommended" ? "active" : ""}
             >
@@ -116,7 +123,8 @@ class Home extends Component {
             </li>
             <li
               onClick={() => {
-                this.setState({ movieList: "search" });
+                this.setState({ movieList: "search",
+                page:1 });
               }}
               className={this.state.movieList === "search" ? "active" : ""}
             >
@@ -143,7 +151,7 @@ class Home extends Component {
             )}
           </div>
           {/*forms*/}
-          <MovieList movieList={this.state.movieList} />
+          <MovieList movieList={this.state.movieList} page={this.state.page} changePage={(i) => this.setState({...this.state,page:i})}/>
           <section id="movies"></section>
         </main>
         {/*container end*/}
