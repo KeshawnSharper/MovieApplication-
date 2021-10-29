@@ -116,8 +116,9 @@ export default class Login extends Component {
           </button>
           <br />
           <br />
+          <p style={{"color":"white","width":"100%"}}> (May need to clear browsing data, cache and/or allow popups to sign in with Google)</p>
+<br />
           <div style={{ display: "inline-flex" }}>
-            <p>( May need to clear browsing data, cache and/or allow popups to sign in with Google)</p>
             <Google  SubmitGoogleUser={() => this.SubmitGoogleUser()} />
             {/* Removing the Facebook login until I find a way for it to not login on render */}
             {/* <Facebook SubmitFacebookUser={() => this.SubmitFacebookUser()} /> */}
