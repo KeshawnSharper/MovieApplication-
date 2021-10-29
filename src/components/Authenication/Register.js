@@ -137,7 +137,7 @@ export default class Register extends Component {
               name="re_password"
               required
             />
-            <label>Password</label>
+            <label>Confirm Password</label>
           </div>
 
           <button className="loginButton" onClick={() => this.handleSubmit()}>
