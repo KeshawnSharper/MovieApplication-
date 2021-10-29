@@ -48,14 +48,13 @@ function Avatar(props) {
   const [openLogOut, setOpenLogOut] = useState(false);
 
   useEffect(() => {
-    console.log(props);
     setUpdatedUser({
       first_name: user.first_name,
       last_name: user.last_name,
       user_name: user.user_name,
       picture: user.picture
     });
-  }, [props.user]);
+  }, [props.user,props,user.first_name, user.last_name, user.picture,user.user_name]);
   console.log(updatedUser);
   const handleOpen = () => {
     setOpen(true);
@@ -177,6 +176,7 @@ function Avatar(props) {
           height: "50px",
           borderRadius: "50px",
         }}
+        alt="Avatar Icon"
         className="user-icon"
         
         src={user.picture ? props.user.picture : null}

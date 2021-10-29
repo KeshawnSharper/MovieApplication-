@@ -17,13 +17,13 @@ font-size: 12px;
     transform: rotate(360deg);
   }
 }
-.button{
+/* .button{
  display: block;
 }
 button{
   padding: 5px;
   cursor: pointer;
-}
+} */
 .nav-text{
   text-align: center;
   margin: 10px;

@@ -1,48 +1,13 @@
 import React, { useState, useEffect } from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@material-ui/core/Modal";
-import { makeStyles } from "@material-ui/core/styles";
 import "./MovieProfile.scss";
-import axios from "axios";
-import Loader from "../Loader/Loader";
 import { connect } from "react-redux";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { AiFillHeart } from 'react-icons/fa'
 import {
   getMovieInfo,
   addFavorite,
   deleteFavorite,
-  deleteRecommedations
 } from "../../actions/actions";
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    // top: `${top}%`,
-    // left: `${left}%`,
-    // transform: `translate(-${top}%, -${left}%)`
-  };
-}
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    // position: "absolute",
-    // width: 400,
-    // backgroundColor: theme.palette.background.paper,
-    // border: "2px solid #000",
-    // boxShadow: theme.shadows[5],
-    // padding: theme.spacing(2, 4, 3)
-  }
-}));
-
 const MovieProfile = (props) => {
-  const classes = useStyles();
   const {
     movie,
     getMovieInfo,
@@ -51,7 +16,6 @@ const MovieProfile = (props) => {
     stars_not_earned,
     list,
     favorites,
-    recommended
   } = props;
   const [open, setOpen] = useState(false);
 
@@ -75,9 +39,8 @@ const MovieProfile = (props) => {
       );
       console.log(isFavorite);
     }
-  }, []);
+  }, [favorites,isFavorite,list,movie]);
 
-  const [modalStyle] = useState(getModalStyle);
   const handleOpen = () => {
     if (list === "favorites") {
       getMovieInfo(movie.movie_id);

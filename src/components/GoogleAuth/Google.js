@@ -4,9 +4,7 @@ import GoogleLogin from "react-google-login";
 
 export default class Google extends React.Component {
   // The component's Local state.
-  constructor(props) {
-    super(props);
-  }
+  
 
   responseGoogle = (response) => {
     console.log(response)

@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import "./MovieCard.css";
 import MovieProfile from "./MovieProfile";
 import { FaHeart } from 'react-icons/fa'
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 import { addFavorite,deleteFavorite } from "../../actions/actions";
 import { connect } from "react-redux";
 
@@ -16,7 +14,7 @@ class MovieCard extends Component {
 
   render() {
     console.log(this.props)
-    const { movie, list,favorite_obj,user } = this.props;
+    const { movie, list,user } = this.props;
     let stars_earned = [];
     let stars_not_earned = [];
     for (let i = 1; i <= 5 - (10 - Math.floor(movie.vote_average)); i++) {

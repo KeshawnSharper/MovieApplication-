@@ -1,6 +1,5 @@
-import React, { Component, useState } from "react";
+import React, { Component} from "react";
 import "./Login.css";
-import Facebook from "../Facebook";
 import { Link } from "react-router-dom";
 import Google from "../GoogleAuth/Google";
 import axios from "axios";
@@ -46,9 +45,9 @@ export default class Login extends Component {
         window.location.reload(false);
       })
       .catch(err => {
+        console.log(err)
         this.setState({...this.state,loading:false})
         this.setState({...this.state,error:{...this.state.error,message:err.response.data.message},loading:false})
-        console.log(err)
       })
   };
   SubmitGoogleUser = (user) => {
@@ -111,13 +110,10 @@ export default class Login extends Component {
             />
             <label>Password</label>
           </div>
-          <a onClick={() => this.Login()}>
-            <span />
-            <span />
-            <span />
-            <span />
+          <button className="loginButton" onClick={() => this.Login()}>
+            
             Login
-          </a>
+          </button>
           <br />
           <br />
           <div style={{ display: "inline-flex" }}>

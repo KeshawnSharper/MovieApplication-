@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import FacebookLogin from "react-facebook-login";
 import "./Home.scss";
 import MovieList from "../Movies/MovieList";
 import Avatar from "../Avatar/Avatar";
@@ -37,6 +36,7 @@ class Home extends Component {
           <nav>
             <img
               className="logo"
+              alt="Movie Application Logo"
               src="https://res.cloudinary.com/di449masi/image/upload/v1607614171/9d5deab5-3260-4f12-a491-a5926a7493bb_200x200_wwa6ys.png"
             />
 
@@ -161,7 +161,7 @@ class Home extends Component {
             {/*social-links end*/}
             <p>1990-2017 imdb.com, inc</p>
           </div>
-          <a href="#">show menu</a>
+          
         </footer>
       </div>
     );

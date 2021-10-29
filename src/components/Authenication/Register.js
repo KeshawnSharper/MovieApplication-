@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import "./Register.css";
-import Facebook from "../Facebook";
 import axios from "axios";
-import Google from "../GoogleAuth/Google";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
-import Login from "./Login";
 export default class Register extends Component {
   constructor(props) {
     super(props);
@@ -143,13 +140,9 @@ export default class Register extends Component {
             <label>Password</label>
           </div>
 
-          <a onClick={() => this.handleSubmit()}>
-            <span />
-            <span />
-            <span />
-            <span />
+          <button className="loginButton" onClick={() => this.handleSubmit()}>
             Register
-          </a>
+          </button>
 
           <div style={{ display: "inline-flex" }}></div>
         </form>

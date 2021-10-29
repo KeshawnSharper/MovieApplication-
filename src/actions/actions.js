@@ -125,10 +125,6 @@ export function recommedations(movie, recommended_movie) {
     });
 }
 export function deleteRecommedations(movie_id) {
-  let body = {
-    movie_id: movie_id,
-    user_id: Number(localStorage.getItem("id"))
-  };
   return (dispatch) => {
     axios
       .delete(
