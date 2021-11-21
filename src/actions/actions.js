@@ -70,7 +70,7 @@ export function getMovieInfo(id) {
 export function getFavorites() {
   console.log(localStorage.getItem("id"))
   return (dispatch) => {
-    axios.get(`https://movieapplication1.herokuapp.com/savedMovies/${localStorage.getItem("id")}`)
+    axios.get(`https://movieapplication1.herokuapp.com/savedMovies/${JSON.parse(localStorage.getItem("user")).id}`)
       .then((res) => {
         let obj = {}
         console.log(res.data)
@@ -142,7 +142,7 @@ export function getUser() {
   return (dispatch) => {
     axios
       .get(
-        `https://movieapplication1.herokuapp.com/users/${localStorage.getItem("id")}`
+        `https://movieapplication1.herokuapp.com/users/${JSON.parse(localStorage.getItem("user")).id}`
       )
       .then((res) => {
         dispatch({ type: "GET_USER", user: res.data.user });
@@ -153,7 +153,7 @@ export function editUser(user) {
   
   return (dispatch) => {
     axios
-      .put(`https://movieapplication1.herokuapp.com/users/${localStorage.getItem("id")}`, user)
+      .put(`https://movieapplication1.herokuapp.com/users/${JSON.parse(localStorage.getItem("user")).id}`, user)
       .then((res) => {
         localStorage.setItem("user",JSON.stringify(user))
         dispatch({ type: "UPDATE_USER", updated_user: res.data.user});
