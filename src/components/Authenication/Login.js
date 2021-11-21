@@ -32,8 +32,9 @@ export default class Login extends Component {
   }
   Login = () => {
     this.setState({...this.state,loading:true})
+    console.log(this.state)
     axios
-      .post(`https://movie-app-be.herokuapp.com/login`, this.state.user)
+      .post(`http://localhost:5000/login`, this.state.user)
       .then((res) => {
         this.setState({...this.state,loading:false})
         localStorage.setItem(`token`, res.data.token);
@@ -51,7 +52,7 @@ export default class Login extends Component {
       })
   };
   SubmitGoogleUser = (user) => {
-              axios.post(`https://movie-app-be.herokuapp.com/loginGoogle/google_${JSON.parse(localStorage.getItem("google_temp_user")).googleId}`,JSON.parse(localStorage.getItem("google_temp_user")))
+              axios.post(`http://localhost:5000/loginGoogle/google_${JSON.parse(localStorage.getItem("google_temp_user")).googleId}`,JSON.parse(localStorage.getItem("google_temp_user")))
                 .then((res) => {
                   localStorage.setItem(`id`, res.data.id);
                   localStorage.setItem(`token`, res.data.token);
@@ -110,7 +111,7 @@ export default class Login extends Component {
             />
             <label>Password</label>
           </div>
-          <button className="loginButton" onClick={() => this.Login()}>
+          <button type="button" className="loginButton" onClick={() => this.Login()}>
             
             Login
           </button>
