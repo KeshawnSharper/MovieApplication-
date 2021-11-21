@@ -34,7 +34,7 @@ export default class Login extends Component {
     this.setState({...this.state,loading:true})
     console.log(this.state)
     axios
-      .post(`https://movie-app-be.herokuapp.com/login`, this.state.user)
+      .post(`https://movieapplication1.herokuapp.com/login`, this.state.user)
       .then((res) => {
         this.setState({...this.state,loading:false})
         localStorage.setItem(`token`, res.data.token);
@@ -52,7 +52,7 @@ export default class Login extends Component {
       })
   };
   SubmitGoogleUser = (user) => {
-              axios.post(`https://movie-app-be.herokuapp.com/loginGoogle/google_${JSON.parse(localStorage.getItem("google_temp_user")).googleId}`,JSON.parse(localStorage.getItem("google_temp_user")))
+              axios.post(`https://movieapplication1.herokuapp.com/loginGoogle/google_${JSON.parse(localStorage.getItem("google_temp_user")).googleId}`,JSON.parse(localStorage.getItem("google_temp_user")))
                 .then((res) => {
                   localStorage.setItem(`id`, res.data.id);
                   localStorage.setItem(`token`, res.data.token);

@@ -45,10 +45,10 @@ export default class Register extends Component {
       loading: true
     })
     axios
-      .post("https://movie-app-be.herokuapp.com/register", this.state.user)
+      .post("https://movieapplication1.herokuapp.com/register", this.state.user)
       .then((res) => {
         console.log("hello")
-        axios.post(`https://movie-app-be.herokuapp.com/login`, {"email":this.state.user.email,"password":this.state.user.password}).then((res) => {
+        axios.post(`https://movieapplication1.herokuapp.com/login`, {"email":this.state.user.email,"password":this.state.user.password}).then((res) => {
         this.setState({...this.state,loading:false})
         localStorage.setItem(`token`, res.data.token);
         localStorage.setItem(`id`, res.data.userid);
