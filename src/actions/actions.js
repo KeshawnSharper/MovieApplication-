@@ -70,7 +70,7 @@ export function getMovieInfo(id) {
 export function getFavorites() {
   console.log(localStorage.getItem("id"))
   return (dispatch) => {
-    axios.get(`https://movie-app-be.herokuapp.com/savedMovies/${localStorage.getItem("id")}`)
+    axios.get(`https://movieapplication1.herokuapp.com/savedMovies/${localStorage.getItem("id")}`)
       .then((res) => {
         let obj = {}
         console.log(res.data)
@@ -84,7 +84,7 @@ export function addFavorite(movie) {
   
   return (dispatch) => {
     axios
-      .post(`https://movie-app-be.herokuapp.com/saveMovie`, movie)
+      .post(`https://movieapplication1.herokuapp.com/saveMovie`, movie)
       .then((res) => {
         dispatch({ type: "ADD_FAVORITE", payload: res.data,movie:movie });
       })
@@ -96,7 +96,7 @@ export function deleteFavorite(id,movie_id) {
   return (dispatch) => {
     axios
       .delete(
-        `https://movie-app-be.herokuapp.com/deleteMovie/${id}/${JSON.parse(localStorage.getItem("user")).id}/${movie_id}`)
+        `https://movieapplication1.herokuapp.com/${id}/${JSON.parse(localStorage.getItem("user")).id}/${movie_id}`)
       .then((res) => {
         let obj = {}
         res.data.movies.map(item => obj[item.movie_id] = true)
@@ -119,7 +119,7 @@ export function recommedations(movie, recommended_movie) {
   };
 
   axios
-    .post(`https://movie-app-be.herokuapp.com/recommendedMovies`, new_movie)
+    .post(`https://movieapplication1.herokuapp.com/recommendedMovies`, new_movie)
     .then((res) => {
       console.log(res.data);
     });
@@ -142,7 +142,7 @@ export function getUser() {
   return (dispatch) => {
     axios
       .get(
-        `https://movie-app-be.herokuapp.com/users/${localStorage.getItem("id")}`
+        `https://movieapplication1.herokuapp.com/users/${localStorage.getItem("id")}`
       )
       .then((res) => {
         dispatch({ type: "GET_USER", user: res.data.user });
@@ -153,7 +153,7 @@ export function editUser(user) {
   
   return (dispatch) => {
     axios
-      .put(`https://movie-app-be.herokuapp.com/users/${localStorage.getItem("id")}`, user)
+      .put(`https://movieapplication1.herokuapp.com/users/${localStorage.getItem("id")}`, user)
       .then((res) => {
         localStorage.setItem("user",JSON.stringify(user))
         dispatch({ type: "UPDATE_USER", updated_user: res.data.user});
