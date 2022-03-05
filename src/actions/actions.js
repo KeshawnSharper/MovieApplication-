@@ -139,13 +139,15 @@ export function deleteRecommedations(movie_id) {
 }
 
 export function getUser() {
+  console.log(localStorage.getItem("user").id)
   return (dispatch) => {
     axios
       .get(
         `https://movieapplication1.herokuapp.com/users/${JSON.parse(localStorage.getItem("user")).id}`
       )
       .then((res) => {
-        dispatch({ type: "GET_USER", user: res.data.user });
+        console.log(res)
+        dispatch({ type: "GET_USER", user: res.data });
       });
   };
 }

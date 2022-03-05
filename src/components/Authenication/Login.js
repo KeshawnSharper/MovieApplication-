@@ -70,9 +70,10 @@ export default class Login extends Component {
     if (localStorage.getItem("Facebook_Temp_User")){
    axios.post(`https://movie-app-be.herokuapp.com/loginFacebook/Facebook_${JSON.parse(localStorage.getItem("Facebook_Temp_User")).id}`,JSON.parse(localStorage.getItem("Facebook_Temp_User")))
    .then(res => {
+console.log()
     localStorage.setItem("user",res.data)
-    this.props.history.push("/home");
-    window.location.reload(false);
+    // this.props.history.push("/home");
+    // window.location.reload(false);
   })
     }
   }
@@ -117,13 +118,13 @@ export default class Login extends Component {
           </button>
           <br />
           <br />
-          <p style={{"color":"white","width":"100%"}}> (May need to clear browsing data, cache and/or allow popups to sign in with Google)</p>
+          {/* <p style={{"color":"white","width":"100%"}}> (May need to clear browsing data, cache and/or allow popups to sign in with Google)</p>
 <br />
           <div style={{ display: "inline-flex" }}>
-            <Google  SubmitGoogleUser={() => this.SubmitGoogleUser()} />
+            <Google  SubmitGoogleUser={() => this.SubmitGoogleUser()} /> */}
             {/* Removing the Facebook login until I find a way for it to not login on render */}
             {/* <Facebook SubmitFacebookUser={() => this.SubmitFacebookUser()} /> */}
-          </div>
+          {/* </div> */}
           <br />
         </form>
         <br />
