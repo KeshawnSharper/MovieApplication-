@@ -65,7 +65,11 @@ export default class Register extends Component {
         this.setState({...this.state,error:{...this.state.error,message:err.response.data.message},loading:false})})
         console.log(this.state.error)
     }
+    componentDidMount() {
+      alert("if you dont want to register use the following credentials to see the demo... {Email: dummy@email.com,Password: p@sSword101}")
+    }
   render() {
+
     return (
       <>
       {

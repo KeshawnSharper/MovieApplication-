@@ -64,14 +64,14 @@ class MovieCard extends Component {
            <div onClick={() => handleClick()}>
              {this.props.favorite_obj ? 
              <>
-             {movie.movie_id ?
+             {/* {movie.movie_id ?
              <>
              <FaHeart  style={{"cursor":"pointer"}} color={this.props.favorite_obj[movie.movie_id] === true ? "red": "white"}/>
              <p>{this.props.favorite_obj[movie.movie_id] === true ? "(Click on heart to delete from favorties)" : "(Click on heart to add to favorties)"}</p>
              </>
              :
             <FaHeart  style={{"cursor":"pointer"}} color={this.props.favorite_obj[movie.id] === true ? "red": "white"}/>
-            }
+            } */}
 
             </>
             : 

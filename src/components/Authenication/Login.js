@@ -77,8 +77,11 @@ console.log()
   })
     }
   }
-
+  componentDidMount() {
+    alert("if you dont want to register use the following credentials to see the demo... {Email: dummy@email.com,Password: p@sSword101}")
+  }
   render() {
+
     return (
       <>
       {
