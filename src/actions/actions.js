@@ -70,7 +70,7 @@ export function getMovieInfo(id) {
 export function getFavorites() {
   console.log("getFavorties",JSON.parse(localStorage.getItem("user")).id)
   return (dispatch) => {
-    axios.get(`http://localhost:5001/savedMovies/${JSON.parse(localStorage.getItem("user")).id}`)
+    axios.get(`https://movieapplication1.herokuapp.com/savedMovies/${JSON.parse(localStorage.getItem("user")).id}`)
       .then((res) => {
         let obj = {}
         console.log("res.data",res.data)
@@ -84,7 +84,7 @@ export function addFavorite(movie) {
   console.log(movie)
   return (dispatch) => {
     axios
-      .post(`http://localhost:5001/savedMovies`, movie)
+      .post(`https://movieapplication1.herokuapp.com/savedMovies`, movie)
       .then((res) => {
         let obj = {}
         console.log("res.data",res.data)
@@ -99,7 +99,7 @@ export function deleteFavorite(movie_id) {
   return (dispatch) => {
     axios
       .delete(
-        `http://localhost:5001/savedMovies/${movie_id}`)
+        `https://movieapplication1.herokuapp.com/savedMovies/${movie_id}`)
       .then((res) => {
         let obj = {}
         console.log("res.data",res.data)
