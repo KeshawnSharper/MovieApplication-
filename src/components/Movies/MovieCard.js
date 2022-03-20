@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./MovieCard.css";
 import MovieProfile from "./MovieProfile";
 import { FaHeart } from 'react-icons/fa'
-import { addFavorite,deleteFavorite } from "../../actions/actions";
+import { addFavorite,deleteFavorite,getFavorites } from "../../actions/actions";
 import { connect } from "react-redux";
 
 class MovieCard extends Component {
@@ -10,6 +10,7 @@ class MovieCard extends Component {
     super(props)
     this.addFavorite = this.props.addFavorite.bind(this)
     this.deleteFavorite = this.props.deleteFavorite.bind(this)
+    this.getFavorites = this.props.getFavorites.bind(this)
   }
 
   render() {
@@ -27,20 +28,18 @@ class MovieCard extends Component {
       stars_not_earned.push(i);
     }
     const handleClick = () => {
+      movie.userID = user.id
+      movie.movie_id = this.props.favorite_obj[movie.movie_id] ? `${movie.movie_id}` : `${movie.id}`
       if(this.props.favorite_obj[movie.movie_id] || this.props.favorite_obj[movie.id]){
-        console.log("delete")
-        if(movie.movie_id){
-          this.deleteFavorite(movie.id,null)
-        }
-        else{
-          console.log(movie)
-        this.deleteFavorite("dont",movie.id)
-        }
+        let movieID = this.props.favorites.filter(favorite => favorite.movie_id  === movie.movie_id)[0].id
+        console.log(this.props.favorites.filter(favorite => favorite.movie_id  === movie.movie_id)[0])
+        console.log(movieID)
+        this.deleteFavorite(movieID)
+
       }
       else{
-      console.log("hello")
-      movie.userID = user.id
       this.addFavorite(movie)
+
       }
     }
     console.log(this.props.favorite_obj)
@@ -64,14 +63,14 @@ class MovieCard extends Component {
            <div onClick={() => handleClick()}>
              {this.props.favorite_obj ? 
              <>
-             {/* {movie.movie_id ?
+             {movie.movie_id ?
              <>
              <FaHeart  style={{"cursor":"pointer"}} color={this.props.favorite_obj[movie.movie_id] === true ? "red": "white"}/>
              <p>{this.props.favorite_obj[movie.movie_id] === true ? "(Click on heart to delete from favorties)" : "(Click on heart to add to favorties)"}</p>
              </>
              :
             <FaHeart  style={{"cursor":"pointer"}} color={this.props.favorite_obj[movie.id] === true ? "red": "white"}/>
-            } */}
+            }
 
             </>
             : 
@@ -87,6 +86,7 @@ class MovieCard extends Component {
 }
 function mapStateToProps(state) {
   return {
+    favorites: state.favorites,
     favorite_obj:state.favorite_obj,
     user:state.user
   };
@@ -96,8 +96,11 @@ const mapDispatchToProps = (dispatch) => {
     addFavorite: (movie) => {
       dispatch(addFavorite(movie));
     },
-    deleteFavorite: (id,movie_id) => {
-      dispatch(deleteFavorite(id,movie_id))
+    deleteFavorite: (movie_id) => {
+      dispatch(deleteFavorite(movie_id))
+    },
+    getFavorites: () => {
+      dispatch(getFavorites())
     }
   };
 };

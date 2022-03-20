@@ -24,20 +24,17 @@ const MovieProfile = (props) => {
     if (list === "favorites") {
       setIsFavorite(true);
     } else if (list === "recommended") {
-      console.log(movie)
       setIsFavorite(
         favorites.filter((favorite) => {
           return favorite.movie_id === Number(movie.movie_id);
         }).length > 0
       );
     } else {
-      console.log(movie.id);
       setIsFavorite(
         favorites.filter((favorite) => {
           return favorite.movie_id === Number(movie.id);
         }).length > 0
       );
-      console.log(isFavorite);
     }
   }, [favorites,isFavorite,list,movie]);
 

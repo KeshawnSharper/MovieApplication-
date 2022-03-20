@@ -68,41 +68,45 @@ export function getMovieInfo(id) {
   };
 }
 export function getFavorites() {
-  console.log(localStorage.getItem("id"))
+  console.log("getFavorties",JSON.parse(localStorage.getItem("user")).id)
   return (dispatch) => {
-    axios.get(`https://movieapplication1.herokuapp.com/savedMovies/${JSON.parse(localStorage.getItem("user")).id}`)
+    axios.get(`http://localhost:5001/savedMovies/${JSON.parse(localStorage.getItem("user")).id}`)
       .then((res) => {
         let obj = {}
-        console.log(res.data)
+        console.log("res.data",res.data)
         res.data.movies.map(item => obj[item.movie_id] = true)
         console.log("obj",obj)
-        dispatch({ type: "GET_FAVORITES", payload: res.data,obj:obj });
+        dispatch({ type: "GET_FAVORITES", payload: res.data.movies,obj:obj });
       });
   };
 }
 export function addFavorite(movie) {
-  
+  console.log(movie)
   return (dispatch) => {
     axios
-      .post(`https://movieapplication1.herokuapp.com/saveMovie`, movie)
+      .post(`http://localhost:5001/savedMovies`, movie)
       .then((res) => {
-        dispatch({ type: "ADD_FAVORITE", payload: res.data,movie:movie });
+        let obj = {}
+        console.log("res.data",res.data)
+        res.data.movies.map(item => obj[item.movie_id] = true)
+        dispatch({ type: "ADD_FAVORITE", payload: res.data.movies,obj:obj })
       })
-      .catch(err => console.log(err))
-  };
+      .catch(err => console.log(err.response));
+  }
 }
-export function deleteFavorite(id,movie_id) {
-  console.log(id,movie_id)
+export function deleteFavorite(movie_id) {
+  console.log(movie_id)
   return (dispatch) => {
     axios
       .delete(
-        `https://movieapplication1.herokuapp.com/${id}/${JSON.parse(localStorage.getItem("user")).id}/${movie_id}`)
+        `http://localhost:5001/savedMovies/${movie_id}`)
       .then((res) => {
         let obj = {}
+        console.log("res.data",res.data)
         res.data.movies.map(item => obj[item.movie_id] = true)
-        console.log(res.data)
-        dispatch({ type: "DELETE_FAVORITE", payload: res.data,id:id !== "dont" ? id : res.data.id,obj:obj });
-      });
+        dispatch({ type: "DELETE_FAVORITE", payload: res.data.movies,obj:obj});
+      })
+      .catch(err => console.log(err.response))
   };
 }
 
